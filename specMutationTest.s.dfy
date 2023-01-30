@@ -27,10 +27,6 @@ predicate Purchase(c:Constants, v:CokeMachine, v':CokeMachine) {
     && v.numCokes > 0
     && v'.numCokes == v.numCokes - 1
 }
-predicate PurchaseStronger(c:Constants, v:CokeMachine, v':CokeMachine) {
-    && v.numCokes == 5
-    && v'.numCokes == v.numCokes - 1
-} 
 
 
 predicate Restock(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int)
@@ -40,6 +36,16 @@ predicate Restock(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int)
     && v'.numCokes == v.numCokes + numRestock
     // && false
 }
+
+predicate Next(c:Constants, v:CokeMachine, v':CokeMachine) {
+    || Purchase(c, v, v')
+    || (exists num :: Restock(c, v, v', num))
+}
+//========================== Stronger State Transitions ===========
+predicate PurchaseStronger(c:Constants, v:CokeMachine, v':CokeMachine) {
+    && v.numCokes == 5
+    && v'.numCokes == v.numCokes - 1
+} 
 predicate RestockVac(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int)
 {
     && numRestock >= 0
@@ -47,25 +53,101 @@ predicate RestockVac(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int)
     && v'.numCokes == v.numCokes + numRestock
     && false
 }
-
-
-predicate Next(c:Constants, v:CokeMachine, v':CokeMachine) {
-    || Purchase(c, v, v')
-    || (exists num :: Restock(c, v, v', num))
+predicate RestockTrivial(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int)
+{
+    && numRestock == 0
+    && v.numCokes + numRestock <= c.capacity
+    && v'.numCokes == v.numCokes + numRestock
+}
+lemma isStrongerTransition()
+    ensures forall c,v,v',num | RestockVac(c,v,v',num) :: Restock(c,v,v',num)
+    ensures forall c,v,v',num | RestockTrivial(c,v,v',num) :: Restock(c,v,v',num)
+    ensures forall c,v,v' | PurchaseStronger(c,v,v') :: Purchase(c,v,v')
+{
 }
 
+lemma fuzzingPurchaseStronger(c:Constants, v:CokeMachine, v':CokeMachine)
+    requires Inv(c,v)
+{
+    // assert !(PurchaseStronger(c,v,v'));
+}
+    // c:_module.Constants = Constants(capacity := 43)
+    // v:_module.CokeMachine = CokeMachine(numCokes := 5)
+    // v':_module.CokeMachine = CokeMachine(numCokes := 4)
+        //NOTE: This is not a reachable state b/c Init(c,v) sets the capacity to 7, so having capacity at 43 is not reachable.
+        // .    this can be 'fixed' by requiring that (c,v) is a 'reachable' state 
+        // .    (the limitation is that it must be 'reachable' in n finite steps, where n is small*)
+
+    // simulated fuzzing with different approach
+lemma fuzzingPurchaseStronger1(c:Constants, v:CokeMachine, v':CokeMachine)
+    requires Inv(c,v)
+    requires v.numCokes != 5
+{
+    assert !(PurchaseStronger(c,v,v')); //nothing?
+    // assert false;
+}
+//========================== Incorrect Spec w/proof ===========
+
+predicate PurchaseV(c:Constants, v:CokeMachine, v':CokeMachine) {
+    && v.numCokes < 0
+    && v'.numCokes == v.numCokes - 1
+}
+
+
+predicate RestockV(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int)
+{
+    && numRestock >= 0
+    && v.numCokes + numRestock <= c.capacity
+    && v'.numCokes == v.numCokes + numRestock
+}
+
+predicate NextV(c:Constants, v:CokeMachine, v':CokeMachine) {
+    || PurchaseV(c, v, v')
+    || (exists num :: RestockV(c, v, v', num))
+}
+
+lemma areTranistionsVac(c:Constants, v:CokeMachine, v':CokeMachine)
+  // requires Inv(c,v)
+{
+  // assert forall c,v,v' | PurchaseV(c,v,v') :: false;
+  // assert  !(PurchaseV(c,v,v'));
+    forall c, v, v' | Inv(c, v) && PurchaseV(c, v, v')
+    {
+      assert false;
+        // assert (PurchaseV(c, v, v') ==> false);
+    }
+}
+lemma SafetyProofV()
+    ensures forall c, v | Init(c, v) :: Inv(c, v)
+    ensures forall c, v, v' | Inv(c, v) && NextV(c, v, v') :: Inv(c, v')
+{
+    forall c, v, v' | Inv(c, v) && NextV(c, v, v')
+        ensures Inv(c, v')
+    {
+        if(PurchaseV(c, v, v')) {
+            assert Inv(c, v');
+        } else {
+            var num :| RestockV(c, v, v', num);
+            assert Inv(c, v');
+        }
+    }
+}
 //==========================
 // Everything below this line is not part of the specification. It allows
 // you to use the verifier to confirm that your state machine has a number
 // of desirable properties.
 
-lemma isStrongerTransition()
-    ensures forall c,v,v',num | RestockVac(c,v,v',num) :: RestockVac(c,v,v',num)
-{
-}
 
 predicate Inv(c:Constants, v:CokeMachine) {
     0 <= v.numCokes <= c.capacity
+}
+predicate StrongerInv(c:Constants, v:CokeMachine) {
+    && 0 <= v.numCokes <= c.capacity
+    && v.numCokes % 2 == 0
+}
+lemma StrongerInvIsStronger()
+    ensures forall c,v | StrongerInv(c,v) :: Inv(c,v);
+{
 }
 ////
 lemma vacousPurchase()
@@ -100,33 +182,34 @@ lemma SafetyProof()
         }
     }
 }
+lemma SafetyProofStrongerInv()
+    ensures forall c, v | Init(c, v) :: StrongerInv(c, v)
+    ensures forall c, v, v' | Inv(c, v) && Next(c, v, v') :: StrongerInv(c, v')
+{
+    forall c, v, v' | StrongerInv(c, v) && Next(c, v, v')
+        ensures StrongerInv(c, v')
+    {
+        if(Purchase(c, v, v')) {
+            assert StrongerInv(c, v');
+        } else {
+            var num :| Restock(c, v, v', num);
+            assert StrongerInv(c, v');
+        }
+    }
+}
 
-// lemma NonTrivialPurchase()
-//     ensures exists c, v, v' :: Inv(c, v) && Next(c, v, v') && v'.numCokes + 1 == v.numCokes
-// {
-//     var c := Constants(7);
-//     var v := CokeMachine(1);
-//     var v' := CokeMachine(0);
-//     assert Inv(c, v) && Next(c, v, v') && v'.numCokes + 1 == v.numCokes;
-// }
-
-// lemma NonTrivialRestock()
-//     ensures exists c, v, v' :: Inv(c, v) && Next(c, v, v') && v.numCokes < v'.numCokes
-// {
-//     var c := Constants(7);
-//     var v := CokeMachine(4);
-//     var v' := CokeMachine(7);
-//     assert Restock(c, v, v', 3);
-//     assert Inv(c, v) && Next(c, v, v') && v.numCokes < v'.numCokes;
-
-// }
 
 ///// SORT EXAMPLE ////
 
-//original 
+//original  
 predicate sortSpec(input:seq<int>, output:seq<int>)
 {
    (forall idx :: 0 <= idx < |output|-1 ==> output[idx] <= output[idx+1])
+}
+
+method sortSpecMeth(input:seq<int>) returns (output:seq<int>)
+{
+  output :| (forall idx :: 0 <= idx < |output|-1 ==> output[idx] <= output[idx+1]);
 }
 
 //Proof FAILS
@@ -198,7 +281,6 @@ lemma sort(input:seq<int>) returns (output:seq<int>)
 { 
         return [];
 }
-
 
 /*
     sortSpec = PASS
