@@ -1,24 +1,8 @@
-
-
-//#title Coke Machine
-//#desc The first state machine specification exercise: fill in actions.
-//#elide
-//#elide Its complexity is about the same as the library. We
-//#elide provide the boilerplate for everything, but leave the state
-//#elide transitions as an exercise.
-//#elide It comes with a safety proof that we expect the students to use as an
-//#elide oracle for whether they got the state transitions right.
-
-// You are asked to define the state machine for a coke vending machine.
-// The machine starts empty and has a maximum capacity of 7 cokes.
-// The machine should support the following actions:
-// Purchase: dispense one coke from the machine
-// Restock: add a number of cokes to the machine
-
+//====================CORRECT SM===============
 datatype Constants = Constants(capacity:int)
 datatype CokeMachine = CokeMachine(numCokes:int)
 
-predicate Init(c:Constants, v:CokeMachine) {
+predicate /*A comment*//*A comment*//*A comment*//*First comment*/Init(c:Constants, v:CokeMachine) {
     && c.capacity == 7
     && v.numCokes == 0
 }
@@ -34,31 +18,55 @@ predicate Restock(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int)
     && numRestock >= 0
     && v.numCokes + numRestock <= c.capacity
     && v'.numCokes == v.numCokes + numRestock
-    // && false
 }
 
 predicate Next(c:Constants, v:CokeMachine, v':CokeMachine) {
     || Purchase(c, v, v')
     || (exists num :: Restock(c, v, v', num))
 }
-//========================== Stronger State Transitions ===========
+
+predicate Inv(c:Constants, v:CokeMachine) {
+    0 <= v.numCokes <= c.capacity
+}
+
+lemma SafetyProof()
+    ensures forall c, v | Init(c, v) :: Inv(c, v)
+    ensures forall c, v, v' | Inv(c, v) && Next(c, v, v') :: Inv(c, v')
+{
+    forall c, v, v' | Inv(c, v) && Next(c, v, v')
+        ensures Inv(c, v')
+    {
+        if(Purchase(c, v, v')) {
+            assert Inv(c, v');
+        } else {
+            var num :| Restock(c, v, v', num);
+            assert Inv(c, v');
+        }
+    }
+}
+
+//====================CORRECT SM===============
+
+//========================== Arbitrary Stronger State Transitions ===========
 predicate PurchaseStronger(c:Constants, v:CokeMachine, v':CokeMachine) {
-    && v.numCokes == 5
+    && v.numCokes == 5 // changed from " && v.numCokes > 0"
     && v'.numCokes == v.numCokes - 1
 } 
+
 predicate RestockVac(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int)
 {
     && numRestock >= 0
     && v.numCokes + numRestock <= c.capacity
     && v'.numCokes == v.numCokes + numRestock
-    && false
+    && false //Added
 }
 predicate RestockTrivial(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int)
 {
-    && numRestock == 0
+    && numRestock == 0 // Changed from " && numRestock >= 0"
     && v.numCokes + numRestock <= c.capacity
     && v'.numCokes == v.numCokes + numRestock
 }
+//Shows that constructed lemmas are stronger than original 
 lemma isStrongerTransition()
     ensures forall c,v,v',num | RestockVac(c,v,v',num) :: Restock(c,v,v',num)
     ensures forall c,v,v',num | RestockTrivial(c,v,v',num) :: Restock(c,v,v',num)
@@ -86,6 +94,45 @@ lemma fuzzingPurchaseStronger1(c:Constants, v:CokeMachine, v':CokeMachine)
     assert !(PurchaseStronger(c,v,v')); //nothing?
     // assert false;
 }
+
+lemma fuzzingRestockTrivial(c:Constants, v:CokeMachine, v':CokeMachine,num:int)
+requires Inv(c,v)
+{
+    // assert !RestockTrivial(c,v,v',num);
+}
+// At "{" (file:///home/edgoldwe/counterExampleTest/specTesting/specMutationTest.s.dfy:99):
+//     c:_module.Constants = Constants(capacity := 38)
+//     v:_module.CokeMachine = CokeMachine(numCokes := 36, numCokes := 36)
+//     v':_module.CokeMachine = v
+//     num:int = 0
+lemma fuzzingRestockTrivial_ChangingNum(c:Constants, v:CokeMachine, v':CokeMachine,num:int)
+    requires Inv(c,v)
+    requires num != 0;
+{
+    assert !RestockTrivial(c,v,v',num);
+}
+
+predicate NextArbitrary(c:Constants, v:CokeMachine, v':CokeMachine) {
+    || PurchaseStronger(c, v, v')
+    || (exists num :: RestockTrivial(c, v, v', num))
+}
+
+lemma SafetyProofArbitrary()
+    ensures forall c, v | Init(c, v) :: Inv(c, v)
+    ensures forall c, v, v' | Inv(c, v) && NextArbitrary(c, v, v') :: Inv(c, v')
+{
+    forall c, v, v' | Inv(c, v) && NextArbitrary(c, v, v')
+        ensures Inv(c, v')
+    {
+        if(PurchaseStronger(c, v, v')) {
+            assert Inv(c, v');
+        } else {
+            var num :| RestockTrivial(c, v, v', num);
+            assert Inv(c, v');
+        }
+    }
+}
+
 //========================== Incorrect Spec w/proof ===========
 
 predicate PurchaseV(c:Constants, v:CokeMachine, v':CokeMachine) {
@@ -94,29 +141,21 @@ predicate PurchaseV(c:Constants, v:CokeMachine, v':CokeMachine) {
 }
 
 
-predicate RestockV(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int)
-{
-    && numRestock >= 0
-    && v.numCokes + numRestock <= c.capacity
-    && v'.numCokes == v.numCokes + numRestock
-}
-
 predicate NextV(c:Constants, v:CokeMachine, v':CokeMachine) {
     || PurchaseV(c, v, v')
-    || (exists num :: RestockV(c, v, v', num))
+    || (exists num :: Restock(c, v, v', num))
 }
 
 lemma areTranistionsVac(c:Constants, v:CokeMachine, v':CokeMachine)
   // requires Inv(c,v)
 {
-  // assert forall c,v,v' | PurchaseV(c,v,v') :: false;
-  // assert  !(PurchaseV(c,v,v'));
+    assert forall c,v,v' | Inv(c, v) && PurchaseV(c,v,v') :: false;
     forall c, v, v' | Inv(c, v) && PurchaseV(c, v, v')
     {
       assert false;
-        // assert (PurchaseV(c, v, v') ==> false);
     }
 }
+// proof still passes 
 lemma SafetyProofV()
     ensures forall c, v | Init(c, v) :: Inv(c, v)
     ensures forall c, v, v' | Inv(c, v) && NextV(c, v, v') :: Inv(c, v')
@@ -127,7 +166,7 @@ lemma SafetyProofV()
         if(PurchaseV(c, v, v')) {
             assert Inv(c, v');
         } else {
-            var num :| RestockV(c, v, v', num);
+            var num :| Restock(c, v, v', num);
             assert Inv(c, v');
         }
     }
@@ -138,9 +177,6 @@ lemma SafetyProofV()
 // of desirable properties.
 
 
-predicate Inv(c:Constants, v:CokeMachine) {
-    0 <= v.numCokes <= c.capacity
-}
 predicate StrongerInv(c:Constants, v:CokeMachine) {
     && 0 <= v.numCokes <= c.capacity
     && v.numCokes % 2 == 0
@@ -167,38 +203,24 @@ lemma vacousPurchase()
 //     }
 // }
 
-lemma SafetyProof()
-    ensures forall c, v | Init(c, v) :: Inv(c, v)
-    ensures forall c, v, v' | Inv(c, v) && Next(c, v, v') :: Inv(c, v')
-{
-    forall c, v, v' | Inv(c, v) && Next(c, v, v')
-        ensures Inv(c, v')
-    {
-        if(Purchase(c, v, v')) {
-            assert Inv(c, v');
-        } else {
-            var num :| Restock(c, v, v', num);
-            assert Inv(c, v');
-        }
-    }
-}
+
 lemma SafetyProofStrongerInv()
     ensures forall c, v | Init(c, v) :: StrongerInv(c, v)
-    ensures forall c, v, v' | Inv(c, v) && Next(c, v, v') :: StrongerInv(c, v')
+    // ensures forall c, v, v' | Inv(c, v) && Next(c, v, v') :: StrongerInv(c, v')
 {
     forall c, v, v' | StrongerInv(c, v) && Next(c, v, v')
-        ensures StrongerInv(c, v')
+        // ensures StrongerInv(c, v')
     {
         if(Purchase(c, v, v')) {
-            assert StrongerInv(c, v');
+            // assert StrongerInv(c, v');
         } else {
             var num :| Restock(c, v, v', num);
-            assert StrongerInv(c, v');
+            // assert StrongerInv(c, v');
         }
     }
 }
 
-
+//====================================================================================
 ///// SORT EXAMPLE ////
 
 //original  
@@ -207,10 +229,10 @@ predicate sortSpec(input:seq<int>, output:seq<int>)
    (forall idx :: 0 <= idx < |output|-1 ==> output[idx] <= output[idx+1])
 }
 
-method sortSpecMeth(input:seq<int>) returns (output:seq<int>)
-{
-  output :| (forall idx :: 0 <= idx < |output|-1 ==> output[idx] <= output[idx+1]);
-}
+// method sortSpecMeth(input:seq<int>) returns (output:seq<int>)
+// {
+//   output :| (forall idx :: 0 <= idx < |output|-1 ==> output[idx] <= output[idx+1]);
+// }
 
 //Proof FAILS
 predicate strongerSortSpec1(input:seq<int>, output:seq<int>)
@@ -237,6 +259,12 @@ predicate correctSpec(input:seq<int>, output:seq<int>)
    && (forall idx :: 0 <= idx < |output|-1 ==> output[idx] <= output[idx+1])
    && (multiset(output) == multiset(input))
 }
+predicate correctSpec'(input:seq<int>, output:seq<int>)
+{
+   && (forall idx :: 0 <= idx < |output|-1 ==> output[idx] <= output[idx+1])
+   && (forall i :: i in input <==> i in output)
+   && |input| == |output|
+}
 
 //Proof FAILS
 predicate correctSpecStronger1(input:seq<int>, output:seq<int>)
@@ -255,6 +283,7 @@ predicate correctSpecStronger2(input:seq<int>, output:seq<int>)
 lemma isStrongerSpec()
     ensures  forall i,o | strongerSortSpec1(i,o) :: sortSpec(i,o);
     ensures  forall i,o | strongerSortSpec2(i,o) :: sortSpec(i,o);
+    // ensures  forall i,o | sortSpec(i,o) :: strongerSortSpec2(i,o);
     ensures  forall i,o | correctSpec(i,o) :: sortSpec(i,o);
     ensures  forall i,o | correctSpecStronger1(i,o) :: correctSpec(i,o);
     // ensures  forall i,o | correctSpec(i,o) :: strongerSortSpec3(i,o);
@@ -264,11 +293,14 @@ lemma isStrongerSpec()
 
 // proof w/ incorrect impl 
 /*
-    sortSpec = Pass
+    (wrong) sortSpec = Pass
+    
     strongerSortSpec1 = FAIL
     strongerSortSpec2 = PASS
     strongerSortSpec3 = FAIL
+
     correctSpec = FAIL
+
     correctSpecStronger1 = FAIL
     correctSpecStronger2 = FAIL
 
@@ -283,11 +315,14 @@ lemma sort(input:seq<int>) returns (output:seq<int>)
 }
 
 /*
-    sortSpec = PASS
+   (wrong) sortSpec = PASS
+
     strongerSortSpec1 = FAIL
     strongerSortSpec2 = FAIL
-    strongerSortSpec3 = PASS (WITH ADDITONAL INVARIANT)
+    strongerSortSpec3 = PASS (WITH ADDITONAL INVARIANT) -- FAIL
+
     correctSpec = PASS
+
     correctSpecStronger1 = FAIL
     correctSpecStronger2 = FAIL
 
@@ -371,10 +406,140 @@ lemma sortSpecUnit()
     var input := [4,3,2,2,1];
     var out := [1,2,2,3,4];
     assert sortSpec(input,out);
-
+    assert correctSpec(input,out);
     //
     assert !correctSpec(input,[]); // This does pass
 
     // assert !sortSpec(input,[]); // expect this to pass..requires thought 
 
 }
+
+
+//// Abstract Functions/Lemmas //ie. axioms 
+
+lemma {:axiom} sorts(input:seq<int>) returns (out:seq<int>)
+    ensures correctSpec(input,out)
+
+function {:axiom}givesSort(input:seq<int>) : (out:seq<int>)
+    ensures correctSpec(input,out)
+
+lemma correctSpecIsDeterministic(input:seq<int>,out:seq<int>,out':seq<int>)
+    requires input == [4,3,2,2,1];
+    requires correctSpec(input,out)
+    requires correctSpec(input,out')
+    requires out' != [-8098,1,2,3,4]
+    requires out == [1,2,2,3,4]
+    // ensures out == out'
+{
+    assert (forall idx :: 0 <= idx < |out|-1 ==> out[idx] <= out[idx+1]);
+    assert (forall idx :: 0 <= idx < |out'|-1 ==> out'[idx] <= out'[idx+1]);
+    assert out[1] <= out[2]; 
+    assert out[0] <= out[1]; 
+    assert out[2] <= out[3]; 
+    assert out[3] <= out[4]; 
+
+    assert out'[1] <= out'[2]; 
+    assert out'[0] <= out'[1]; 
+    assert out'[2] <= out'[3]; 
+    assume out'[3] <= out'[4]; 
+    assert multiset(input) == multiset(out); 
+    assert multiset(input) == multiset(out'); 
+    assert multiset{1,2,2,3,4} == multiset(input);
+
+    assert  multiset(out) ==  multiset(out');
+    assert multiset{1,2,2,3,4} == multiset(out);
+    assert multiset{1,2,2,3,4} == multiset(out');
+    // assert multiset{1,2,2,3,4} == multiset{1,2,3,4,4};
+    // assert multiset{1,2,3,4,4} == multiset(out');
+    assert out == [1,2,2,3,4];
+     multisetSequence(out,multiset(out));
+    multisetSequence(out',multiset(out'));
+    multisetSequence(input,multiset(input));
+
+    // assert out' == [1,2,2,3,4];
+    //  assert multiset{1,1,2,3,4} == multiset(out);
+    // assert out == out';
+    // assert false;
+}
+lemma seqAreEqualIfMultiSetIsEqual(a:seq<int>,b:seq<int>)
+    requires multiset(a) == multiset(b);
+{
+    multisetSequence(a,multiset(a));
+    assert |a| == |b|;
+
+}
+
+lemma multisetSequence(nums: seq<int>, ms: multiset<int>) 
+    requires multiset(nums) == ms;
+    ensures multiset(nums) == ms 
+    ensures |nums| == |ms|
+{
+}
+
+
+lemma correctSpecIsWeird(input:seq<int>,out:seq<int>)
+    requires input == [4,3,2,2,1];
+    // requires correctSpec(input,out)
+    requires out == [1,1,2,3,4]
+    // ensures out == out'
+{
+    assert (forall idx :: 0 <= idx < |out|-1 ==> out[idx] <= out[idx+1]);
+    assert out[1] <= out[2]; 
+    assert out[0] <= out[1]; 
+    assert out[2] <= out[3]; 
+    assert out[3] <= out[4]; 
+    // assert multiset(input) == multiset(out);
+    assert multiset{1,1,2,3,4} == multiset(out);
+    assert multiset{1,2,2,3,4} == multiset(input);
+    // assert correctSpec(input,out);
+}
+
+lemma sortsTest()
+{
+    var input := [4,3,2,2,1];
+    var out := sorts(input);
+    assert sortSpec(input,out); // this is meaningless 
+    assert correctSpec(input,out); 
+    assert multiset(input) == multiset{1,2,2,3,4};
+    // assert multiset(input) == multiset{1,2,3,4};
+    var o := [-8098, 1, 2, 3, 4];
+    // assert multiset(input) == multiset(o);
+    // assert correctSpec(input,o); 
+    // assert out == [1,2,2,3,4];
+    // assert out == []; 
+}
+
+// At "{" (file:///home/edgoldwe/counterExampleTest/specTesting/specMutationTest.s.dfy:418):
+//     input:seq<int> = [4, 3, 2, 2, 1]
+//     out:seq<int> = [-8098, 1, 2, 3, 4]
+//     out':seq<int> = (Length := 5, [0] := 2, [1] := 3, [2] := 4, [4] := 1)
+
+// At "{" (file:///home/edgoldwe/counterExampleTest/specTesting/specMutationTest.s.dfy:418):
+//     input:seq<int> = [4, 3, 2, 2, 1]
+//     out:seq<int> = (Length := 5, [0] := 1, [1] := 3, [3] := 2, [4] := 4)
+//     out':seq<int> = (Length := 5, [0] := 2, [1] := 3, [3] := 1, [4] := 4)
+
+// At "{}" (file:///home/edgoldwe/counterExampleTest/specTesting/specMutationTest.s.dfy:418):
+//     input:seq<int> = [4, 3, 2, 2, 1]
+//     out:seq<int> = (Length := 5, [0] := 4, [2] := 1, [3] := 2, [4] := 3)
+//     out':seq<int> = (Length := 5, [0] := 3, [2] := 1, [3] := 2, [4] := 4)
+
+// At "{" (file:///home/edgoldwe/counterExampleTest/specTesting/specMutationTest.s.dfy:421):
+//     input:seq<int> = ()
+//     out:seq<int> = ()
+//     o:seq<int> = ()
+
+// At "var input := [4,3,2,2,1];" (file:///home/edgoldwe/counterExampleTest/specTesting/specMutationTest.s.dfy:422):
+//     input:seq<int> = [4, 3, 2, 2, 1]
+//     out:seq<int> = ()
+//     o:seq<int> = ()
+
+// At "var out := sorts(input);" (file:///home/edgoldwe/counterExampleTest/specTesting/specMutationTest.s.dfy:423):
+//     input:seq<int> = [4, 3, 2, 2, 1]
+//     out:seq<int> = (Length := 5, [0] := 1, [1] := 3, [3] := 2, [4] := 4)
+//     o:seq<int> = ()
+
+// At "var o := [1,2,2,3,4];" (file:///home/edgoldwe/counterExampleTest/specTesting/specMutationTest.s.dfy:428):
+//     input:seq<int> = [4, 3, 2, 2, 1]
+//     out:seq<int> = (Length := 5, [0] := 1, [1] := 3, [3] := 2, [4] := 4)
+//     o:seq<int> = [1, 2, 2, 3, 4]
