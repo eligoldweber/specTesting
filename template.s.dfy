@@ -24,9 +24,16 @@ lemma isPredSM_ND<C,V>(c:C,v:V,v':V,v'':V)
 //   ensures v' == v''
 //   {}
 
-predicate Purchase(c:Constants, v:CokeMachine, v':CokeMachine) {
+predicate Purchase(c:Constants, v:CokeMachine, v':CokeMachine) 
+{
     && v.numCokes > 0
     && v'.numCokes == v.numCokes - 1
+}
+
+predicate PurchaseND(c:Constants, v:CokeMachine, v':CokeMachine) 
+{
+    && v.numCokes > 0
+    && v'.numCokes <= v.numCokes - 1
 }
 
 predicate pre<T>(a:T){
@@ -37,7 +44,31 @@ predicate post<T>(a:T){
 	true
 }
 
-  lemma lemmaOrMethodThatReturnsAValue<T>(a:T) returns (b:T)
+lemma maxExample(a:int,b:int) returns (c:int)
+	requires a > 0
+  ensures c > a
+	ensures c > b
+
+lemma maxExampleD(a:int,b:int) returns (c:int)
+	ensures c >= a
+	ensures c >= b
+	ensures c == a || c == b
+
+lemma is_maxExampleD_ND(a:int,b:int)
+{
+        var result := maxExampleD(a,b);
+        var result' := maxExampleD(a,b);
+        assert result == result';
+}
+
+lemma isMaxExampleNDD(a:int,b:int)
+{
+	var c := maxExampleD(a,b);
+	var c' := maxExampleD(a,b);
+	assert c == c';
+}
+
+lemma lemmaOrMethodThatReturnsAValue<T>(a:T) returns (b:T)
     requires pre(a)
     ensures post(b)
 

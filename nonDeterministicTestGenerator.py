@@ -1,6 +1,10 @@
 #!/usr/bin/python
 import sys, getopt
+# ASSUMES PREDICATE IS IN THE FORM (With the body bracket on the next line after the parameters)
+# PREDICATE NAME(PARAM1, PARAM2)
+# {
 
+# }
 #works with predicates right now
 def findFunctionInFile(in_filename,origFnName):
     fo = open(in_filename,"r+")
@@ -8,7 +12,8 @@ def findFunctionInFile(in_filename,origFnName):
     count = 0
     listofLines = []
     foundStart = False
-    fullFnName = "predicate "+ origFnName
+    # Look for a predicate
+    fullFnName = "predicate "+ origFnName + "("
     for line in dafnyCode:
         args = line.split()
         if(foundStart and line.strip()):   
@@ -19,13 +24,26 @@ def findFunctionInFile(in_filename,origFnName):
             listofLines.append(line.strip())
             foundStart = True
         count = count + 1
-    # print(listofLines)
+    if (listofLines == []):
+        #could be a lemma!
+        count = 0
+        fullFnName = "lemma "+ origFnName + "("
+        for line in dafnyCode:
+            args = line.split()
+            if(foundStart and line.strip()):   
+                listofLines.append(line.strip())
+            else:
+                foundStart = False
+            if(fullFnName in line):
+                listofLines.append(line.strip())
+                foundStart = True
+            count = count + 1
     return listofLines
 
 # returns:
 # (fullparams) == String of new and old parameters
 # (generatedPreConds) == List of strings, that are the new necessary pre conditions
-def handleSMParamsAndPreCond(parameters,origFnName):
+def handleSMPredicateParamsAndPreCond(parameters,origFnName):
     #(ASSUME) 'next' state var is marked with " ' " notation
     # print(parameters)
     newParameters = []
@@ -58,7 +76,7 @@ def handleSMParamsAndPreCond(parameters,origFnName):
 # (generatedPreConds) == List of strings, that are the new necessary pre conditions
 # (oldParams) == List of original parameters
 # (newParams) == List of new parameters
-def handleNonSMParamsAndPreCond(parameters):
+def handleNonSMPredicateParamsAndPreCond(parameters):
     newParameters = []
     fullparams = ""
     for p in parameters:
@@ -93,6 +111,29 @@ def stripParameterTypes(parameterList):
         stripedParameters = stripedParameters + p.split(":")[0] + ","
     return stripedParameters[:-1]
 
+# returns:
+# (fullparams) == String of new and old parameters
+# (originalPreconds) == List of strings, that are the original pre conditions    
+def handleLemmaParamsAndPreCond(parameters,originalFn):
+    fullparams = ""
+    for p in parameters:
+        fullparams += p + ","
+    fullparams = fullparams[:-1]
+    originalPreconds = []
+    for line in originalFn:
+        if "requires" in line:
+            originalPreconds.append(line)
+    return fullparams,originalPreconds
+
+# returns:
+# (fullBody) == Generated body for lemma 
+def generateLemmaBodyFromLemma(parameters,origFnName):
+    # print(stripParameterTypes(parameters))
+    fullBody = ("var result := " + origFnName + "(" + stripParameterTypes(parameters) + ");"
+                + "\n\tvar result' := " + origFnName + "(" + stripParameterTypes(parameters) + ");"
+                + "\n\tassert result == result';")
+    return(fullBody)
+
 # creates lemma as a String
 def makeLemma(lemmaName,parameterList,preConds,postConds,body):
     lemma = "lemma " + lemmaName + "(" + parameterList + ")"
@@ -100,10 +141,10 @@ def makeLemma(lemmaName,parameterList,preConds,postConds,body):
         lemma = lemma + "\n\t" + preC
     for postC in postConds:
         lemma = lemma + "\n\t" + postC
-    lemma = lemma + "\n{\n\t\t" + body + "\n}"
+    lemma = lemma + "\n{\n\t" + body + "\n}"
     return lemma
 
-def generateNDLemma(originalFn,origFnName,isStateTransPredicate):
+def generateNDLemmaFromPredicate(originalFn,origFnName,isStateTransPredicate):
     lemmaName = "is_"+origFnName+"_ND"
     fullparams = ""
     generatedPreConds = []
@@ -113,19 +154,31 @@ def generateNDLemma(originalFn,origFnName,isStateTransPredicate):
     parameters = originalFn[0].split("(")[1][:-1].split(",")
     # CASE: Normal Predicate
     if(not isStateTransPredicate):
-        fullparams,generatedPreConds,origParams,newParams = handleNonSMParamsAndPreCond(parameters)
-        # print("FULL PARAMS == ",fullparams)
-        # print("generatedPreConds == ",generatedPreConds)
+        fullparams,generatedPreConds,origParams,newParams = handleNonSMPredicateParamsAndPreCond(parameters)
         #--handle existing pre-conditions--
         existingPreCond = handleExistingPreConditions(originalFn)
         # generate new post-condition
         newPostCond.append("ensures " + origFnName + "(" + stripParameterTypes(origParams) + ") == " + origFnName + "(" + stripParameterTypes(newParams) + ")")
-        # put it all together
     else:
-        fullparams,generatedPreConds,originalNextVar, newParameters = handleSMParamsAndPreCond(parameters,origFnName)
+        fullparams,generatedPreConds,originalNextVar, newParameters = handleSMPredicateParamsAndPreCond(parameters,origFnName)
+        print(fullparams)
          # generate new post-condition
         newPostCond.append("ensures " + originalNextVar[0].split(":")[0] + " == " + newParameters[0].split(":")[0])
+    # put it all together
     return makeLemma(lemmaName,fullparams,existingPreCond+generatedPreConds,newPostCond,"")
+
+
+def generateNDLemmaFromLemma(originalFn,origFnName,isStateTransPredicate):
+    lemmaName = "is_"+origFnName+"_ND"
+    fullparams = ""
+    generatedPreConds = []
+    existingPreCond = []
+    newPostCond = []
+    #handle parameters
+    parameters = originalFn[0].split(")")[0].split("(")[1].split(",")
+    fullparams,existingPreCond = handleLemmaParamsAndPreCond(parameters,originalFn)
+    body = generateLemmaBodyFromLemma(parameters,origFnName)
+    return makeLemma(lemmaName,fullparams,existingPreCond+generatedPreConds,newPostCond,body)
 
 def usage():
     return ("nonDeterministicTestGenerator.py" + 
@@ -169,7 +222,12 @@ def main(argv):
     
 
     functionTxt = findFunctionInFile(inputfile,nameOfFunction)
-    lemma = generateNDLemma(functionTxt,nameOfFunction,smFlag)
+    if(functionTxt[0].split()[0] == "predicate"):
+        #generate ND test starting with a PREDICATE
+        lemma = generateNDLemmaFromPredicate(functionTxt,nameOfFunction,smFlag)
+    else:
+        #generate ND test starting with a LEMMA
+        lemma = generateNDLemmaFromLemma(functionTxt,nameOfFunction,smFlag)
     print(lemma)
 
     print("\n======================================\n")
