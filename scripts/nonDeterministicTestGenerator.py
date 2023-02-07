@@ -181,7 +181,8 @@ def generateNDLemmaFromLemma(originalFn,origFnName,isStateTransPredicate):
     return makeLemma(lemmaName,fullparams,existingPreCond+generatedPreConds,newPostCond,body)
 
 def usage():
-    return ("nonDeterministicTestGenerator.py" + 
+    return ("nonDeterministicTestGenerator.py" +
+                    "\n\t -h help " +
                     "\n\t -i <inputfile> " +
                     "\n\t -n <nameOfFunction> "+ 
                     "\n\t -s StateMachineFlag(default=False): " + 

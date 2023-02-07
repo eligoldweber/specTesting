@@ -47,126 +47,126 @@ def all_smt(s, initial_terms,bound,count):
     yield from all_smt_rec(list(initial_terms),bound,count)
 
 
-x = Int('x')
-y = Int('y')
-s = Solver()
-# v = x + y < 10, x > 1, y > 1
-v = x + y < 10
+# x = Int('x')
+# y = Int('y')
+# s = Solver()
+# # v = x + y < 10, x > 1, y > 1
+# v = x + y < 10
 
-s.add(v)
-# print(s.check())
-# print(s.model())
-try:
-    models = list(all_smt(s,[x,y],4,0))
-except Exception as e:
-    # print(e)
-    msg,models = e.args
+# s.add(v)
+# # print(s.check())
+# # print(s.model())
+# try:
+#     models = list(all_smt(s,[x,y],4,0))
+# except Exception as e:
+#     # print(e)
+#     msg,models = e.args
 
-print (len(models))
-for m in models:
-    print(m)
-print ((models))
-
-print("++++++")
-x = Int('x')
-y = Int('y')
-s = Solver()
-v =  eval("x + y < 10, x > 1, y > 1")
-print(v)
-s.add(v)
-# print(s.check())
-# print(s.model())
-
-# models = list(bounded_smt_rec(s,[x,y],10))
 # print (len(models))
+# for m in models:
+#     print(m)
 # print ((models))
 
-a = Int('a')
-b = Int('b')
-c = Int('c')
-s = Solver()
+# print("++++++")
+# x = Int('x')
+# y = Int('y')
+# s = Solver()
+# v =  eval("x + y < 10, x > 1, y > 1")
+# print(v)
+# s.add(v)
+# # print(s.check())
+# # print(s.model())
 
-# s.add(And(c >= a, c >= b),a >= 0,a < 10,b >= 0,b < 10,c < 50)
-s.add(And(c >= a, c >= b), Or(c == a, c == b))
-# print simplify(And(c >= a, c >= b), Or(c == a, c == b))
-# s.add(And(c >= a, c >= b),a >= 0,a < 10,b >= 0,b < 10,c < 50)
+# # models = list(bounded_smt_rec(s,[x,y],10))
+# # print (len(models))
+# # print ((models))
 
-# vals = list(all_smt(s, [a, b,c]))
-try:
-    models = list(all_smt(s,[a,b,c],10,0))
-except Exception as e:
-    print(e)
-    msg,models = e.args
+# a = Int('a')
+# b = Int('b')
+# c = Int('c')
+# s = Solver()
 
-# print (len(models))
-for m in models:
-    print(m)
+# # s.add(And(c >= a, c >= b),a >= 0,a < 10,b >= 0,b < 10,c < 50)
+# s.add(And(c >= a, c >= b), Or(c == a, c == b))
+# # print simplify(And(c >= a, c >= b), Or(c == a, c == b))
+# # s.add(And(c >= a, c >= b),a >= 0,a < 10,b >= 0,b < 10,c < 50)
+
+# # vals = list(all_smt(s, [a, b,c]))
+# try:
+#     models = list(all_smt(s,[a,b,c],10,0))
+# except Exception as e:
+#     print(e)
+#     msg,models = e.args
+
+# # print (len(models))
+# for m in models:
+#     print(m)
 
 
-x = Int('x')
-y = Int('y')
-n = x + y >= 3
-print("num args: ", n.num_args())
-print("children: ", n.children())
-print("1st child:", n.arg(0))
-print("2nd child:", n.arg(1))
-print("operator: ", n.decl())
-print("op name:  ", n.decl().name())
+# c = Int('c')
+# v = Int('v')
+# w = Int('w')
+# s = Solver()
 
-listofVars = ["a"]
-_a = locals()
-for v in listofVars:
-    _a[v] = Int(str(v))
-    print( _a[v])
+# v = eval("And(v >= 0, v <= c, v > 0, w == v - 1)")
+# print("!!!!!! = " ,v)
 
-def createSMTQuery(vals,query,numOfTrials):
-    listofVars = []
+# s.add(v)
+# print(s.check())
+# print(s.model())
+# print(s.check())
+# print(s.model())
+# listOfVars = ["a"]
+# _a = locals()
+# for v in listOfVars:
+#     _a[v] = Int(str(v))
+#     print( _a[v])
+
+def runAndPrintSMTQueries(s,listOfVars,numOfTrials):
+    try:
+        models = list(all_smt(s,listOfVars,numOfTrials,0))
+    except Exception as e:
+        # print(e)
+        msg,models = e.args
+    for i in range(len(models)):
+        print("Example (",i,") = ", models[i])
+    if(len(models) == 0):
+        print("\nNo Satisfying assingments with these constraints!")
+
+def createAndRunSMTQueries(vals,query,numOfTrials):
+    listOfVars = []
     _g = globals()
     for v in vals:
         if(vals.get(v) == "Int"):
             temp = Int(str(v))
-            listofVars.append(temp)
-    print(listofVars) 
+            _g[v] = Int(str(v))
+            listOfVars.append(temp)
+    print("Varaibles =",listOfVars)
     s = Solver()
-    v =  eval(query)
+    v = eval(query,_g)
     s.add(v)
+    print("Constraints = ",s)
+    runAndPrintSMTQueries(s,listOfVars,int(numOfTrials))
 
-    try:
-        models = list(all_smt(s,[a,b,c],int(numOfTrials),0))
-    except Exception as e:
-    # print(e)
-        msg,models = e.args
-    for m in models:
-        print(m)
-    #MAX
-    for var in listofVars:
+    #MAX INT
+    for var in listOfVars:
         s = Solver()
-        v =  eval(query)
+        v = eval(query,_g)
         s.add(v)
-        print("====Testing MAX Values for: ", var,"======")
+        print("\n====Testing MAX Values for: ", var,"======")
         s.add(var == sys.maxsize)
-        print(s)
-        try:
-            models = list(all_smt(s,listofVars,2,0))
-        except Exception as e:
-            msg,models = e.args
-        for m in models:
-            print(m)
-    #MIN
-    for var in listofVars:
-        s = Solver()
-        v =  eval(query)
-        s.add(v)
-        print("====Testing MIN Values for: ", var,"======")
-        s.add(var == -sys.maxsize-1)
-        print(s)
-        try:
-            models = list(all_smt(s,listofVars,2,0))
-        except Exception as e:
-            msg,models = e.args
-        for m in models:
-            print(m)
+        print("Constraints = ",s)
+        runAndPrintSMTQueries(s,listOfVars,2)
 
+    #MIN INT
+    for var in listOfVars:
+        s = Solver()
+        v = eval(query,_g)
+        s.add(v)
+        print("\n====Testing MIN Values for: ", var,"======")
+        s.add(var == -sys.maxsize-1)
+        print("Constraints = ",s)
+        runAndPrintSMTQueries(s,listOfVars,2)
 
 def usage():
     return ("fuzzing.py" + 
@@ -200,7 +200,7 @@ def main(argv):
     print('query is: ', query)
     print('num of trials: ', numOfTrials)
     print("======================================")
-    createSMTQuery(vals,query,numOfTrials) #ASSUMES ALL VAR ARE INT
+    createAndRunSMTQueries(vals,query,numOfTrials) #ASSUMES ALL VAR ARE INT
     # for a in vals:
     #     print(vals.get(a))
 
