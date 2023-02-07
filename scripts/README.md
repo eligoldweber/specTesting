@@ -95,6 +95,7 @@ predicate PurchaseND(c:Constants, v:CokeMachine, v':CokeMachine)
     && v.numCokes > 0
     && v'.numCokes <= v.numCokes - 1
 }
+
 predicate Inv(c:Constants, v:CokeMachine) 
 {
     0 <= v.numCokes <= c.capacity
@@ -109,6 +110,7 @@ predicate Purchase(c:Constants, v:CokeMachine, v':CokeMachine)
     && v.numCokes > 0
     && v'.numCokes == v.numCokes - 1
 }
+
 predicate Inv(c:Constants, v:CokeMachine) 
 {
     0 <= v.numCokes <= c.capacity
