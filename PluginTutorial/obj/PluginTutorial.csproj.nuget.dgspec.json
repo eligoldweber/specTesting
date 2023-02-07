@@ -1,0 +1,1143 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/edgoldwe/counterExampleTest/PluginTutorial/PluginTutorial.csproj": {}
+  },
+  "projects": {
+    "/home/edgoldwe/counterExampleTest/PluginTutorial/PluginTutorial.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/PluginTutorial/PluginTutorial.csproj",
+        "projectName": "PluginTutorial",
+        "projectPath": "/home/edgoldwe/counterExampleTest/PluginTutorial/PluginTutorial.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/PluginTutorial/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/Source/DafnyLanguageServer/DafnyLanguageServer.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/Source/DafnyLanguageServer/DafnyLanguageServer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/Source/DafnyCore/DafnyCore.csproj": {
+      "version": "3.9.1.41027",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/Source/DafnyCore/DafnyCore.csproj",
+        "projectName": "DafnyCore",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/Source/DafnyCore/DafnyCore.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/Source/DafnyCore/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/ExecutionEngine/ExecutionEngine.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/ExecutionEngine/ExecutionEngine.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "noWarn": [
+            "NU5104"
+          ],
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "JetBrains.Annotations": {
+              "target": "Package",
+              "version": "[2021.1.0, )"
+            },
+            "Microsoft.CodeAnalysis.CSharp": {
+              "target": "Package",
+              "version": "[3.7.0, )"
+            },
+            "System.Collections.Immutable": {
+              "target": "Package",
+              "version": "[1.7.0, )"
+            },
+            "System.CommandLine": {
+              "target": "Package",
+              "version": "[2.0.0-beta4.22272.1, )"
+            },
+            "System.Runtime.Numerics": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/Source/DafnyLanguageServer/DafnyLanguageServer.csproj": {
+      "version": "3.9.1.41027",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/Source/DafnyLanguageServer/DafnyLanguageServer.csproj",
+        "projectName": "DafnyLanguageServer",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/Source/DafnyLanguageServer/DafnyLanguageServer.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/Source/DafnyLanguageServer/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/Source/DafnyCore/DafnyCore.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/Source/DafnyCore/DafnyCore.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.CommandLine": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "OmniSharp.Extensions.LanguageServer": {
+              "target": "Package",
+              "version": "[0.19.5, )"
+            },
+            "RangeTree": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.10.0, )"
+            },
+            "Serilog.Extensions.Logging": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.Settings.Configuration": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Serilog.Sinks.Debug": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "System.Collections": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Diagnostics.Debug": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.IO.FileSystem.Primitives": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/AbstractInterpretation/AbstractInterpretation.csproj": {
+      "version": "2.15.9",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/AbstractInterpretation/AbstractInterpretation.csproj",
+        "projectName": "Boogie.AbstractInterpretation",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/AbstractInterpretation/AbstractInterpretation.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/AbstractInterpretation/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj": {
+      "version": "2.15.9",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj",
+        "projectName": "Boogie.BaseTypes",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj": {
+      "version": "2.15.9",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj",
+        "projectName": "Boogie.CodeContractsExtender",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Concurrency/Concurrency.csproj": {
+      "version": "2.15.9",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Concurrency/Concurrency.csproj",
+        "projectName": "Boogie.Concurrency",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Concurrency/Concurrency.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Concurrency/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj": {
+      "version": "2.15.9",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj",
+        "projectName": "Boogie.Core",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/ExecutionEngine/ExecutionEngine.csproj": {
+      "version": "2.15.9",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/ExecutionEngine/ExecutionEngine.csproj",
+        "projectName": "Boogie.ExecutionEngine",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/ExecutionEngine/ExecutionEngine.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/ExecutionEngine/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/AbstractInterpretation/AbstractInterpretation.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/AbstractInterpretation/AbstractInterpretation.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Concurrency/Concurrency.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Concurrency/Concurrency.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Houdini/Houdini.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Houdini/Houdini.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Model/Model.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Model/Model.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCGeneration/VCGeneration.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCGeneration/VCGeneration.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "System.Reactive": {
+              "target": "Package",
+              "version": "[4.4.1, )"
+            },
+            "System.Runtime.Caching": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj": {
+      "version": "2.15.9",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj",
+        "projectName": "Boogie.Graph",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Houdini/Houdini.csproj": {
+      "version": "2.15.9",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Houdini/Houdini.csproj",
+        "projectName": "Boogie.Houdini",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Houdini/Houdini.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Houdini/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Model/Model.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Model/Model.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Provers/SMTLib/SMTLib.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Provers/SMTLib/SMTLib.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCExpr/VCExpr.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCExpr/VCExpr.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCGeneration/VCGeneration.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCGeneration/VCGeneration.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Model/Model.csproj": {
+      "version": "2.15.9",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Model/Model.csproj",
+        "projectName": "Boogie.Model",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Model/Model.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Model/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Provers/SMTLib/SMTLib.csproj": {
+      "version": "2.15.9",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Provers/SMTLib/SMTLib.csproj",
+        "projectName": "Boogie.Provers.SMTLib",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Provers/SMTLib/SMTLib.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Provers/SMTLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Model/Model.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Model/Model.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCExpr/VCExpr.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCExpr/VCExpr.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "System.Linq.Async": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCExpr/VCExpr.csproj": {
+      "version": "2.15.9",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCExpr/VCExpr.csproj",
+        "projectName": "Boogie.VCExpr",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCExpr/VCExpr.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCExpr/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCGeneration/VCGeneration.csproj": {
+      "version": "2.15.9",
+      "restore": {
+        "projectUniqueName": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCGeneration/VCGeneration.csproj",
+        "projectName": "Boogie.VCGeneration",
+        "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCGeneration/VCGeneration.csproj",
+        "packagesPath": "/home/edgoldwe/.nuget/packages/",
+        "outputPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCGeneration/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/edgoldwe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/BaseTypes/BaseTypes.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/CodeContractsExtender/CodeContractsExtender.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Core/Core.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Graph/Graph.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Model/Model.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Model/Model.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Provers/SMTLib/SMTLib.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/Provers/SMTLib/SMTLib.csproj"
+              },
+              "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCExpr/VCExpr.csproj": {
+                "projectPath": "/home/edgoldwe/counterExampleTest/dafny/boogie/Source/VCExpr/VCExpr.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
