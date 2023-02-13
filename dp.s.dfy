@@ -248,3 +248,4 @@ lemma IsTrivial(c:Constants,b:seq<Variables>) returns (b':seq<Variables>)
 
 } 
  
+

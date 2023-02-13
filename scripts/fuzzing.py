@@ -7,9 +7,6 @@ import json
 print(sys.setrecursionlimit(1000))
 COUNT = 0
 
-
-
-
 def all_smt(s, initial_terms,bound,count):
     listTest = []
     COUNT = 0
@@ -25,102 +22,20 @@ def all_smt(s, initial_terms,bound,count):
            m = s.model()
            yield m
            listTest.append(m)
-        #    print("M == " ,listTest)
-        #    print("here " + str(c))
            c = c + 1
            if(c >= bound):
              raise Exception("Current val at bound",listTest)
     
            for i in range(len(terms)):
-            #    print(i)
                s.push()
                block_term(s, m, terms[i])
-            #    print("afterBlock")
                for j in range(i):
                    fix_term(s, m, terms[j])
-            #    print("TERMS = " , terms[i:])
-            #    print("S == ", s)
                yield from all_smt_rec(terms[i:],bound,c)
-            #    print("S POP !! == ", s)
                s.pop()   
 
     yield from all_smt_rec(list(initial_terms),bound,count)
 
-
-# x = Int('x')
-# y = Int('y')
-# s = Solver()
-# # v = x + y < 10, x > 1, y > 1
-# v = x + y < 10
-
-# s.add(v)
-# # print(s.check())
-# # print(s.model())
-# try:
-#     models = list(all_smt(s,[x,y],4,0))
-# except Exception as e:
-#     # print(e)
-#     msg,models = e.args
-
-# print (len(models))
-# for m in models:
-#     print(m)
-# print ((models))
-
-# print("++++++")
-# x = Int('x')
-# y = Int('y')
-# s = Solver()
-# v =  eval("x + y < 10, x > 1, y > 1")
-# print(v)
-# s.add(v)
-# # print(s.check())
-# # print(s.model())
-
-# # models = list(bounded_smt_rec(s,[x,y],10))
-# # print (len(models))
-# # print ((models))
-
-# a = Int('a')
-# b = Int('b')
-# c = Int('c')
-# s = Solver()
-
-# # s.add(And(c >= a, c >= b),a >= 0,a < 10,b >= 0,b < 10,c < 50)
-# s.add(And(c >= a, c >= b), Or(c == a, c == b))
-# # print simplify(And(c >= a, c >= b), Or(c == a, c == b))
-# # s.add(And(c >= a, c >= b),a >= 0,a < 10,b >= 0,b < 10,c < 50)
-
-# # vals = list(all_smt(s, [a, b,c]))
-# try:
-#     models = list(all_smt(s,[a,b,c],10,0))
-# except Exception as e:
-#     print(e)
-#     msg,models = e.args
-
-# # print (len(models))
-# for m in models:
-#     print(m)
-
-
-# c = Int('c')
-# v = Int('v')
-# w = Int('w')
-# s = Solver()
-
-# v = eval("And(v >= 0, v <= c, v > 0, w == v - 1)")
-# print("!!!!!! = " ,v)
-
-# s.add(v)
-# print(s.check())
-# print(s.model())
-# print(s.check())
-# print(s.model())
-# listOfVars = ["a"]
-# _a = locals()
-# for v in listOfVars:
-#     _a[v] = Int(str(v))
-#     print( _a[v])
 
 def runAndPrintSMTQueries(s,listOfVars,numOfTrials):
     try:
@@ -201,9 +116,40 @@ def main(argv):
     print('num of trials: ', numOfTrials)
     print("======================================")
     createAndRunSMTQueries(vals,query,numOfTrials) #ASSUMES ALL VAR ARE INT
-    # for a in vals:
-    #     print(vals.get(a))
+    # s = Solver()
+    # I = IntSort()
+    # A = Array('A', I, I)
+    # i = Int("i")
+    # f = Function('f', IntSort(), IntSort())
+    # print(ForAll([i], f(i) == 0))
+    # X = IntVector('x', 10)
+    # Y = Array('y', IntSort(), IntSort())
+    # solve(ForAll([i], i >= 0, i < 3, X[i] <= X[i+1]))
+    # s.add(ForAll([i], X[i] <= X[i+1]))
+    # print(s.check())
+    # print(s.model())
+    # solve(And(ForAll([i], X[i] <= X[i+1]),ForAll([i], Implies(i in X, i in Y))))
+    # I = IntSort()
+    # # A is an array from integer to integer
+    # A = Array('A', I, I)
+    # x = Int('x')
+    # print(A[x])
+    # print(Select(A, x))
+    # print(Store(A, x, 10))
+    # print(simplify(Select(Store(A, 2, x+1), 2)))
+   
+    # s = Solver()
 
+    # f = Function('f', IntSort(), IntSort(),BoolSort())
+    # x, y = Ints('x y')
+
+    # a, b = Ints('a b')
+    # f = Function('f', IntSort(), IntSort(), IntSort())
+    # x, y = Ints('x y')
+    # r = ForAll([x, y], And(f(x, y) == (x > y), x == 5))
+    
+
+    # solve(r)
 
 if __name__ == "__main__":
    main(sys.argv[1:])

@@ -20,6 +20,15 @@ predicate Restock(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int)
     && v'.numCokes == v.numCokes + numRestock
 }
 
+lemma is_Restock_ND(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int, v'':CokeMachine)
+        requires Restock(c, v, v', numRestock)
+        requires Restock(c, v, v'', numRestock)
+        ensures  v' ==  v''
+{
+
+}
+
+
 predicate Next(c:Constants, v:CokeMachine, v':CokeMachine) {
     || Purchase(c, v, v')
     || (exists num :: Restock(c, v, v', num))
