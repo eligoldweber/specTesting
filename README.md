@@ -34,7 +34,7 @@ allow the proof to pass. Avoid this by checking which of the mutations are equal
 the mutations that are valid. unique and stronger. 
 
 
->NOTE: an example for the body of the ipPortListOneNode.txt file is `141.212.114.214:50051` for running both the holeEval tool and the grpc server on the same host (skynode2) 
+>NOTE: an example for the body of the ipPortListOneNode.txt file is `[IP]:50051` for running both the holeEval tool and the grpc server on the same host  
 
 https://github.com/arminvakil/dafny-grpc-server
 
