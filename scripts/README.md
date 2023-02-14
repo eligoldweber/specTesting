@@ -1,4 +1,4 @@
-###Spec Testing Scripts 
+### Spec Testing Scripts 
 
 #### `nonDeterministicTestGenerator.py`
 
@@ -31,7 +31,6 @@ predicate PurchaseND(c:Constants, v:CokeMachine, v':CokeMachine)
     && v'.numCokes <= v.numCokes - 1
 }
 ```
-
 Running the following command:
 
  `python scripts/nonDeterministicTestGenerator.py -i example.s.dfy -n "Restock" -s True`
@@ -49,7 +48,7 @@ lemma is_PurchaseND_ND(c:Constants, v:CokeMachine, v':CokeMachine, v'':CokeMachi
 
 > **_NOTE:_**  Assumes Predicate is in the following form (With the body bracket on the next line after the parameters)
 
->```
+```
 PREDICATE NAME(PARAM1, PARAM2)
 {
 }
