@@ -13,6 +13,8 @@ See `/.scripts` for more details about Fuzzing and Non-Deterministic Testing
 
 ### Mutation Testing Prototype
 
+Starting with a Spec, and a proof that passes, running a mutating the spec and retrying the proof gives an indication that the spec could be too weak. If a stronger mutated spec still allows the proof to go through, this is a red flag, that the original spec may not be the intended spec. 
+
 https://github.com/eligoldweber/dafny-holeEval/tree/mutations
 
 This is a fork from https://github.com/GLaDOS-Michigan/dafny-holeEval. 

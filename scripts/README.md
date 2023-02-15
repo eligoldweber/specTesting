@@ -4,6 +4,8 @@
 
 Generates and/or appends a Non-Deterministic test for a predicate or Lemma in Dafny.
 
+Non-determinism in a spec could be a red flag that the spec is not what is fully intended.
+
 Usage:
 -h: help 
 
@@ -58,6 +60,8 @@ PREDICATE NAME(PARAM1, PARAM2)
 
 Uses Z3py to automatically generate unique satisfying values for expresions. 
 
+Rather than writing "unit-like" tests for predicates, this leverages z3 to automatically find
+satisfying input,output pairs that then can be checked manually. By examining the output, the user can get a sense from the generated input,output pairs if their spec permits the intended implementation. 
 
 > **_NOTE:_** Only works for expresions using INT type, and automatically checks with additional constraints of `INT.MAX` and `INT.MIN`
 
