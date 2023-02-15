@@ -4,19 +4,11 @@ module basic {
     predicate predMaxEx(a:int,b:int)
     {
         (a >= b && b > 100)
-        // a >= b
     }
-
-    predicate basePredMaxEx(a:int,b:int)
-    {
-        // a >= b
-         (a >= b && b > 100)
-    }
-
-    lemma {:timeLimitMultiplier 2}  isStronger()
-    ensures forall a,b :: predMaxEx(a,b) ==> basePredMaxEx(a,b)
-    {
-    }
+    // lemma isSame_predMaxEx()
+    // ensures (forall a,b :: predMaxEx(a,b) <==> predMaxEx_BASE(a,b))
+    // {
+    // }
 }
 
 module maxExample{
@@ -26,17 +18,6 @@ module maxExample{
         c >= a
         && c >= b
     }
-
-    // predicate maxSpec_BASE(a:int,b:int,c:int)
-    // {
-    //     c >= a
-    //     && c >= b
-    // }
-
-    // lemma isStronger()
-    // ensures forall a,b,c :: maxSpec(a,b,c) ==> maxSpec_BASE(a,b,c)
-    // {
-    // }
 
     // lemma isSame_maxSpec()
     // ensures (forall a,b,c :: maxSpec(a,b,c) <==> maxSpec_BASE(a,b,c))
@@ -64,17 +45,10 @@ module correctMaxExample{
         && (c == b || c ==a)
     }
 
-    predicate maxSpecBase(a:int,b:int,c:int)
-    {
-        c >= a
-        && c >= b
-        && (c == b || c ==a)
-    }
-
-    lemma {:timeLimitMultiplier 2}  isStronger()
-    ensures forall a,b,c :: maxSpec(a,b,c) ==> maxSpecBase(a,b,c)
-    {
-    }
+    // lemma isSame_maxSpec()
+    // ensures (forall a,b,c :: maxSpec(a,b,c) <==> maxSpec_BASE(a,b,c))
+    // {
+    // }
 
     lemma max(a:int,b:int) returns (c:int)
         ensures maxSpec(a,b,c)
