@@ -28,15 +28,18 @@ To build:
 To run: 
 
 ```
-./Binaries/Dafny /rlimit:1000 /compile:0 /allowGlobals /noNLarith /autoTriggers:1 /verifyAllModules /holeEval:[MODULE_NAME].[PREDICATE NAME] /holeEvalRunOnce /holeEvalServerIpPortList:ipPortListOneNode.txt [PATH TO FILE].dfy &> output.txt
+./Binaries/Dafny /rlimit:1000 /compile:0 /allowGlobals /noNLarith /autoTriggers:1 /verifyAllModules /holeEval:[MODULE_NAME].[PREDICATE NAME] /proofName:[MODULE_NAME].[PREDICATE NAME] /holeEvalRunOnce /holeEvalServerIpPortList:ipPortListOneNode.txt [PATH TO FILE].dfy &> output.txt
 ```
 
-See `mutationEx.dfy` for example files;
+By including the `/proofName` commandline parameter, this tool will automatically check for each mutation in order, if the mutation is Stronger without the proof, if the mutation is equivalent to the un-mutated predicate without the proof, and finally if the first two checks pass, will check if the proof still passes with the mutation. 
 
-The current prototype will automatically generate the `isStronger` lemma, and the `base` predicate. There is an option to also
-generate the `isSame` lemma. To do so uncomment line 901-902 in `Source/Dafny/HoleEvaluator.cs`and rebuilding.
+See `correctMaxPredMutation.dfy`, and `maxPredMutation.dfy` for example files;
 
->NOTE: examples of the `isSame` lemma are left commented out in `mutationEx.dfy`
+for example:
+
+```
+./Binaries/Dafny /rlimit:1000 /compile:0  /allowGlobals /noNLarith /autoTriggers:1 /verifyAllModules /holeEval:maxExample.maxSpec /proofName:maxExample.max /holeEvalRunOnce /holeEvalServerIpPortList:ipPortListOneNode.txt ~/maxPredMutation.dfy &> output.txt
+```
 
 The output from this tool will generate a log in `output.txt` and will display all the attempted mutations, and the ones that passed. As well
 as a directory of intermediary files. 
