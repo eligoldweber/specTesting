@@ -161,7 +161,7 @@ def generateNDLemmaFromPredicate(originalFn,origFnName,isStateTransPredicate):
         newPostCond.append("ensures " + origFnName + "(" + stripParameterTypes(origParams) + ") == " + origFnName + "(" + stripParameterTypes(newParams) + ")")
     else:
         fullparams,generatedPreConds,originalNextVar, newParameters = handleSMPredicateParamsAndPreCond(parameters,origFnName)
-        print(fullparams)
+        # print(fullparams)
          # generate new post-condition
         newPostCond.append("ensures " + originalNextVar[0].split(":")[0] + " == " + newParameters[0].split(":")[0])
     # put it all together

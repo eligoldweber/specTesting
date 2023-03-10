@@ -2,7 +2,7 @@
 datatype Constants = Constants(capacity:int)
 datatype CokeMachine = CokeMachine(numCokes:int)
 
-predicate /*A comment*//*A comment*//*A comment*//*First comment*/Init(c:Constants, v:CokeMachine) {
+predicate Init(c:Constants, v:CokeMachine) {
     && c.capacity == 7
     && v.numCokes == 0
 }
@@ -11,13 +11,21 @@ predicate Purchase(c:Constants, v:CokeMachine, v':CokeMachine) {
     && v.numCokes > 0
     && v'.numCokes == v.numCokes - 1
 }
+lemma is_Restock_ND(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int, v'':CokeMachine)
+        requires Restock(c, v, v', numRestock)
+        requires Restock(c, v, v'', numRestock)
+        ensures  v' ==  v''
+{
+
+}
+
 
 
 predicate Restock(c:Constants, v:CokeMachine, v':CokeMachine, numRestock:int)
 {
     && numRestock >= 0
     && v.numCokes + numRestock <= c.capacity
-    && v'.numCokes == v.numCokes + numRestock
+    && v'.numCokes > v.numCokes + numRestock
 }
 
 predicate Next(c:Constants, v:CokeMachine, v':CokeMachine) {

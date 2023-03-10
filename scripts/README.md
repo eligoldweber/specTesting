@@ -78,7 +78,7 @@ Usage:
 
 -n: number of Trials -- Number of unique satisfying assignments to ask Z3 for
 
-`python scripts/fuzzing.py -v '{ "a": "Int", "b": "Int" , "c":"Int"}'  -q "And(c >= a, c >= b)" -n 4`
+`python scripts/fuzzing.py -v '{ "a": "Int", "b": "Int" , "c":"Int"}'  -q "And(c >= a, c >= b)" -n 4 -r true`
 
 ##### `fuzzing.py` Example Queries
 

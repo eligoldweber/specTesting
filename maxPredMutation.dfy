@@ -19,10 +19,6 @@ module maxExample{
         && c >= b
     }
 
-    // lemma isSame_maxSpec()
-    // ensures (forall a,b,c :: maxSpec(a,b,c) <==> maxSpec_BASE(a,b,c))
-    // {
-    // }
 
     lemma max(a:int,b:int) returns (c:int)
         ensures maxSpec(a,b,c)

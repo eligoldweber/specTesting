@@ -120,9 +120,11 @@ def createAndRunSMTQueries(vals,query,numOfTrials,rand):
 def usage():
     return ("fuzzing.py" + 
                     "\n\t -vals [dictionary of input type pairs] " +
-                    "\n\t\t i.e:  '{ \"key1\": \"value 1\", \"key2\": \"value 2\" }' " + 
+                    "\n\t\t i.e:  '{ \"key1\": \"value 1\", \"key2\": \"value 2\" }' " +
                     "\n\t -q <query> "+ 
-                    "\n\t\t smt query i.e: \"And(c >= a, c >= b), Or(c == a, c == b)\"")
+                    "\n\t\t smt query i.e: \"And(c >= a, c >= b), Or(c == a, c == b)\""+ 
+                    "\n\t -r <rand> "+  
+                    "\n\t\t optional flag for how to generate SMT results:")
 
 def main(argv):
     vals = {}
