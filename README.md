@@ -52,10 +52,12 @@ KV mutation example:
 ```
 
 The output from this tool will generate a log in `output.txt` and will display all the attempted mutations, and the ones that passed. As well
-as a directory of intermediary files. 
+as a directory of intermediary files in `./outputLogs`. 
 
-There are 2 prepocessing steps `isWeaker` lemma checks to see if the mutated predicate is weaker than the original predicate. We dont care about weaker mutations. 
-It is possible for a mutation to be exactly the same as the original predicate, which will lead to a false positive. The next check fixes this by checking which of the mutations are equal. 
+There is one prepocessing step. The`isAtLeastAsWeak` lemma checks to see if the mutated predicate is weaker or equal to than the original predicate. We dont care about weaker mutations. 
+It is possible for a mutation to be exactly the same as the original predicate, which will lead to a false positive.
+
+By default the only mutations that are generated are from the body of the predicate. Using the flag `\mutationsFromParams` will genereate new mutations based on the parameter types. Additionally using the flag `/holeEvalDepth:2` will cause the framework to genereate additonal mutations by creating conjunctions or disjunctions based on permutations of the mutations generated from `\mutationsFromParams`.
 
 
 >NOTE: an example for the body of the ipPortListOneNode.txt file is just `[IP]:50051` for running both the holeEval tool and the grpc server on the same host. The default port configured for the dafny-grpc-server is 50051. Both the dafny server and holeEval tool can be run on the same machine, but it is suggested to at least use multiple sessions. 
