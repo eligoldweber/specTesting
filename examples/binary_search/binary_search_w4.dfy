@@ -85,6 +85,15 @@ lemma BinarySearchWrong4UnitTestNotFound3() {
     // not found, odd array
     var arr := [1,3,4,5,6,7,7,8,9];
     var index := BinarySearchWrong4(arr,2);
+    assert false;
     assert index < 0;
 }
 
+// w4 fail
+// inputs kind 1: key in intSeq
+// correct behavior according to the ensures
+// inputs kind 2: key not in intSeq
+// unrealistic, similar to assert false
+
+// assert false
+// witness
