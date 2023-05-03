@@ -13,18 +13,24 @@ lemma InitNonDeterministicTest(c: Constants) {
 
 lemma InitUnitTest1() {
     // normal case
-    var v := InitLemma(Constants(5));
+    var c := Constants(5);
+    var v := InitLemma(c);
     assert v == Variables(Server, [false, false, false, false, false]);
+    assert Safety(c, v);
 }
 
 lemma InitUnitTest2() {
     // empty
-    var v := InitLemma(Constants(0));
+    var c := Constants(0);
+    var v := InitLemma(c);
     assert v == Variables(Server, []);
+    assert Safety(c, v);
 }
 
 lemma InitUnitTest3() {
     // one element
-    var v := InitLemma(Constants(1));
+    var c := Constants(1);
+    var v := InitLemma(c);
     assert v == Variables(Server, [false]);
+    assert Safety(c, v);
 }
