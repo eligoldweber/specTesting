@@ -19,10 +19,6 @@ lemma AcquireNonDeterministicTest(c: Constants, v: Variables, index: nat)
     assert a == b;
 }
 
-// how to know a state is reachable or not ==> invariant
-
-// invariant and safety condition proof is a way to test correctness of the specification
-
 lemma AcquireUnitTest1() {
     // init normal case
     var c := Constants(5);
@@ -46,5 +42,5 @@ lemma AcquireUnitTest3() {
     var v := Variables(Client(2), [false, false, true, false, false]);
     // var v' := AcquireLemma(c, v, 2);
     // assert v' == Variables(Client(0), [true]);
-    // is it meaningful to test precondition?
+    // TODO: is it meaningful to test precondition?
 }

@@ -1,6 +1,4 @@
 include "spec.dfy"
-// non-deterministic
-// unit test
 
 lemma InitLemma(c: Constants) returns (v: Variables)
     ensures v.WellFormed(c)
@@ -30,5 +28,3 @@ lemma InitUnitTest3() {
     var v := InitLemma(Constants(1));
     assert v == Variables(Server, [false]);
 }
-
-// problem: if we specify the correct behavior, then similar to specification
