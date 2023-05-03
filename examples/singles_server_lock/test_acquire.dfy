@@ -26,6 +26,8 @@ lemma AcquireUnitTest1() {
     var index := 0;
     var v' := AcquireLemma(c, v, index);
     assert v' == Variables(Client(0), [true, false, false, false, false]);
+    assert Safety(c, v);
+    assert Safety(c, v');
 }
 
 lemma AcquireUnitTest2() {
@@ -35,6 +37,8 @@ lemma AcquireUnitTest2() {
     var index := 0;
     var v' := AcquireLemma(c, v, index);
     assert v' == Variables(Client(0), [true]);
+    assert Safety(c, v);
+    assert Safety(c, v');
 }
 
 lemma AcquireUnitTest3() {

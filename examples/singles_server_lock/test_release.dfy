@@ -9,7 +9,7 @@ lemma ReleaseLemma(c: Constants, v: Variables, index: nat) returns (v': Variable
   ensures v'.WellFormed(c)
   ensures v'.server.Server?
   ensures v'.client == v.client[index := false]
-  
+
 lemma ReleaseNonDeterministicTest(c: Constants, v: Variables, index: nat)
   requires v.WellFormed(c)
   requires index < c.numClient
@@ -28,6 +28,8 @@ lemma ReleaseUnitTest1() {
     var v := Variables(Client(1), [false, true, false, false, false]);
     var v' := ReleaseLemma(c, v, 1);
     assert v' == Variables(Server, [false, false, false, false, false]);
+    assert Safety(c, v);
+    assert Safety(c, v');
 }
 
 lemma ReleaseUnitTest2() {
@@ -37,6 +39,8 @@ lemma ReleaseUnitTest2() {
     var index := 0;
     var v' := ReleaseLemma(c, v, index);
     assert v' == Variables(Server, [false]);
+    assert Safety(c, v);
+    assert Safety(c, v');
 }
 
 lemma ReleaseUnitTest3() {
