@@ -31,6 +31,14 @@ lemma Service_Next_Test_Invalid2() {
     assert !Service_Next(s, s');
 }
 
+lemma Service_Next_Test_Invalid3() {
+    // new lock not in hosts NOTE: need some proof
+    var hosts := {EndPoint([1]),EndPoint([2]),EndPoint([3]),EndPoint([4])};
+    var s := ServiceState'(hosts, [EndPoint([1])]);
+    var s' := ServiceState'(hosts, [EndPoint([1]), EndPoint([5])]);
+    assert s'.history[|s.history|] == EndPoint([5]);
+    assert !Service_Next(s, s');
+}
 
 // generalized test -- check general property
 lemma Service_Next_Property_1(s:ServiceState, s':ServiceState)
