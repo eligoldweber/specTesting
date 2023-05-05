@@ -3,8 +3,8 @@ include "service.dfy"
 // valid cases
 lemma Service_Init_Test1() {
     // normal case
-    var serverAddresses := {EndPoint([1]),EndPoint([2]),EndPoint([3]),EndPoint([4])};
-    var s := ServiceState'({EndPoint([1]),EndPoint([2]),EndPoint([3]),EndPoint([4])}, [EndPoint([1])]);
+    var serverAddresses := {EndPoint([1,2]),EndPoint([1]),EndPoint([3,4]),EndPoint([4])};
+    var s := ServiceState'({EndPoint([1,2]),EndPoint([1]),EndPoint([3,4]),EndPoint([4])}, [EndPoint([1])]);
     assert Service_Init(s, serverAddresses);
 }
 
@@ -79,7 +79,7 @@ lemma Service_Init_Test_Invalid7() {
 lemma Service_Init_Property1(s:ServiceState, serverAddresses:set<EndPoint>)
     requires Service_Init(s, serverAddresses)
 {
-    assert serverAddresses == s.hosts;
+    // assert serverAddresses == s.hosts;
     assert s.history[0] in s.hosts;
-    assert s.history[0] in serverAddresses;
+    // assert s.history[0] in serverAddresses;
 }

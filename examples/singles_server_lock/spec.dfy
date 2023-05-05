@@ -86,7 +86,7 @@ datatype Step =
   | ReleaseStep(client: nat)
 /*}*/
 
-ghost predicate NextStep(c:Constants, v:Variables, v':Variables, step: Step) {
+predicate NextStep(c:Constants, v:Variables, v':Variables, step: Step) {
   match step
 /*{*/
   case AcquireStep(client: nat) => Acquire(c, v, v', client)
@@ -94,7 +94,7 @@ ghost predicate NextStep(c:Constants, v:Variables, v':Variables, step: Step) {
 /*}*/
 }
 
-ghost predicate Next(c:Constants, v:Variables, v':Variables) {
+predicate Next(c:Constants, v:Variables, v':Variables) {
   exists step :: NextStep(c, v, v', step)
 }
 

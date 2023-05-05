@@ -9,7 +9,7 @@ lemma SafetyTest1() {
 
 lemma SafetyTest2() {
     var c := Constants(3);
-    var v := Variables(Client(1), [false, false, false]);
+    var v := Variables(Client(1), [true, false, false]);
 
     assert Safety(c, v);
 }
