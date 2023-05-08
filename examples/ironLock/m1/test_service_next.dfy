@@ -1,9 +1,10 @@
 include "service.dfy"
 
-lemma Service_Next_Test1() {
+lemma Service_Next_Test1() { 
     var hosts := {EndPoint([1]),EndPoint([2]),EndPoint([3]),EndPoint([4])};
     var s := ServiceState'(hosts, [EndPoint([1])]);
     var s' := ServiceState'(hosts, [EndPoint([1]), EndPoint([2])]);
+    assert s'.history == s.history + [EndPoint([2])];
     assert Service_Next(s, s');
 }
 
@@ -11,8 +12,9 @@ lemma Service_Next_Test2() {
     var hosts := {EndPoint([1]),EndPoint([2]),EndPoint([3]),EndPoint([4])};
     var s := ServiceState'(hosts, [EndPoint([1]), EndPoint([2])]);
     var s' := ServiceState'(hosts, [EndPoint([1]), EndPoint([2]), EndPoint([3])]);
+    assert s'.history == s.history + [EndPoint([3])];
     assert Service_Next(s, s');
-}
+} 
 
 
 lemma Service_Next_Test_Invalid1() {
@@ -32,12 +34,11 @@ lemma Service_Next_Test_Invalid2() {
 }
 
 lemma Service_Next_Test_Invalid3() {
-    // new lock not in hosts NOTE: need some proof
+    // new lock not in hosts
     var hosts := {EndPoint([1]),EndPoint([2]),EndPoint([3]),EndPoint([4])};
     var s := ServiceState'(hosts, [EndPoint([1])]);
     var s' := ServiceState'(hosts, [EndPoint([1]), EndPoint([5])]);
-    assert s'.history[|s.history|] == EndPoint([5]);
-    // assert s'.history == s.history + [EndPoint([5])];
+    assert s'.history == s.history + [EndPoint([5])];
     assert !Service_Next(s, s');
 }
 
