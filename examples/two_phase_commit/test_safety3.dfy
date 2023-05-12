@@ -8,7 +8,7 @@ module TestSafetyAC2 {
     import opened DistributedSystem
     import opened Obligations
 
-    lemma Test1_SafetyAC2()
+    lemma Test1_SafetyAC3()
     {
         // a positive forall does not need supplement
         // var c:Constants :| c.WF() && forall i:nat | i < |c.hosts| - 1 :: c.hosts[i].participant.preference == Yes;
@@ -41,6 +41,7 @@ module TestSafetyAC2 {
         // need witness for this - a negation of forall need a witness
         assert GetDecisionForHost(Last(v.hosts)).Some? && GetDecisionForHost(Last(v.hosts)).value.Commit?;
         assert c.hosts[2].participant.preference == No;
+        // assert !AllPreferencesAreYes(c);
 
         assert !SafetyAC3(c, v);
     }
