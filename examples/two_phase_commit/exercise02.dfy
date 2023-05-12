@@ -41,7 +41,7 @@ predicate AllPreferencesAreYes(c: Constants)
   {
     // All hosts that reach a decision reach the same one
 /*{*/
-    forall i:nat, j:nat | i < j < |v.hosts| :: GetDecisionForHost(v.hosts[i]).Some? && GetDecisionForHost(v.hosts[j]).Some? ==> GetDecisionForHost(v.hosts[i]) == GetDecisionForHost(v.hosts[j])
+    forall i:nat, j:nat | i < j < |v.hosts| :: (GetDecisionForHost(v.hosts[i]).Some? && GetDecisionForHost(v.hosts[j]).Some?) ==> (GetDecisionForHost(v.hosts[i]) == GetDecisionForHost(v.hosts[j]))
 /*}*/
   }
 

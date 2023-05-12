@@ -58,4 +58,39 @@ module TestSafetyAC1 {
 
         assert !SafetyAC1(c, v);
     }
-}
+
+    lemma TestInvalid3_SafetyAC1() 
+    {
+        // 16: i < j, where j is None, i is Some
+        var cc:Host.Constants := Host.CoordinatorConstants(CoordinatorHost.Constants(5));
+        var pc:seq<Host.Constants> := seq(5, i requires i >= 0 => Host.ParticipantConstants(ParticipantHost.Constants(i, Yes)));
+        var c := Constants(pc + [cc], Network.Constants);
+
+        var cv:Host.Variables := Host.CoordinatorVariables(CoordinatorHost.Variables(None, seq(5, i => Some(Yes))));
+        var pv:seq<Host.Variables> := seq(5, i => Host.ParticipantVariables(ParticipantHost.Variables(Some(Commit))));
+        var pv2 := pv[2 := Host.ParticipantVariables(ParticipantHost.Variables(Some(Commit)))];
+        var v := Variables(pv2 + [cv], Network.Variables({}));
+        
+        // need witness for this - a negation of forall need a witness
+
+        assert SafetyAC1(c, v);
+    }
+
+    lemma Test2_SafetyAC1()
+    {
+        // 17: 0 ==> 1 Two hosts decided None.
+        var cc:Host.Constants := Host.CoordinatorConstants(CoordinatorHost.Constants(5));
+        var pc:seq<Host.Constants> := seq(5, i requires i >= 0 => Host.ParticipantConstants(ParticipantHost.Constants(i, Yes)));
+        var c := Constants(pc + [cc], Network.Constants);
+
+        var cv:Host.Variables := Host.CoordinatorVariables(CoordinatorHost.Variables(None, seq(5, i => Some(Yes))));
+        var pv:seq<Host.Variables> := seq(5, i => Host.ParticipantVariables(ParticipantHost.Variables(Some(Commit))));
+        var pv2 := pv[2 := Host.ParticipantVariables(ParticipantHost.Variables(None))];
+        var v := Variables(pv2 + [cv], Network.Variables({}));
+        
+        // need witness for this - a negation of forall need a witness
+        assert v.hosts[2].participant.decision == None;
+        assert Last(v.hosts).coordinator.decision == None;
+        assert SafetyAC1(c, v);
+    }
+} 
