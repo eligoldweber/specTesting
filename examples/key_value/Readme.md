@@ -16,7 +16,7 @@ Refinement-specific
         * output is not modeled in the state
         * the protocol might have only implemented a portion of the functionality of the high-level spec (not guaranteed by refinement)
         * not trivial to tell which functions have been implemented, and which are not
-
+5. correct spec + incorrect protocol + incorrect abstraction 
 SpecTesting
 
 `key_value_int_spec.dfy` - `test_int_spec.dfy`: original spec and test cases
