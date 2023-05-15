@@ -70,13 +70,14 @@ module TestSafetyAC1 {
         var pv:seq<Host.Variables> := seq(5, i => Host.ParticipantVariables(ParticipantHost.Variables(Some(Commit))));
         var pv2 := pv[2 := Host.ParticipantVariables(ParticipantHost.Variables(Some(Commit)))];
         var v := Variables(pv2 + [cv], Network.Variables({}));
-        
-        // need witness for this - a negation of forall need a witness
 
-        assert SafetyAC1(c, v);
+        assert v.hosts[1].participant.decision.Some?;
+        assert Last(v.hosts).coordinator.decision == None;
+
+        assert SafetyAC1(c, v); 
     }
 
-    lemma Test2_SafetyAC1()
+    lemma Test2_SafetyAC1() 
     {
         // 17: 0 ==> 1 Two hosts decided None.
         var cc:Host.Constants := Host.CoordinatorConstants(CoordinatorHost.Constants(5));
@@ -92,5 +93,5 @@ module TestSafetyAC1 {
         assert v.hosts[2].participant.decision == None;
         assert Last(v.hosts).coordinator.decision == None;
         assert SafetyAC1(c, v);
-    }
+    } 
 } 
