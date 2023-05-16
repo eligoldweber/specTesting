@@ -16,7 +16,15 @@ Refinement-specific
         * output is not modeled in the state
         * the protocol might have only implemented a portion of the functionality of the high-level spec (not guaranteed by refinement)
         * not trivial to tell which functions have been implemented, and which are not
-5. correct spec + incorrect protocol + incorrect abstraction 
+5. correct spec + incorrect protocol + incorrect abstraction
+    * observations: the protocol must have kept all the information that can produce a corresponding state in the correct spec (assume no output)
+    * but both the state and the transition might not be "corresponding" in an expected way
+    * possible problems:
+        * state not corresponding in an expected way (i => i + 1) -- test abstraction function `key_value_int_abstraction.dfy` - `test_abstraction.dfy`
+        - [ ] 
+        * transition mixup (insert => noop) -- "at least mentioned once" in refinement proof (or following the paradigm and check if all are asserted in the desired way) (4.)
+        * state and transition both mixed up (add 1/subtract 1, +/- abstraction function)
+
 SpecTesting
 
 `key_value_int_spec.dfy` - `test_int_spec.dfy`: original spec and test cases
