@@ -21,9 +21,9 @@ Refinement-specific
     * but both the state and the transition might not be "corresponding" in an expected way
     * possible problems:
         * state not corresponding in an expected way (i => i + 1) -- test abstraction function `key_value_int_abstraction.dfy` - `test_abstraction.dfy`
-        - [ ] 
-        * transition mixup (insert => noop) -- "at least mentioned once" in refinement proof (or following the paradigm and check if all are asserted in the desired way) (4.)
-        * state and transition both mixed up (add 1/subtract 1, +/- abstraction function)
+        * transition unspecified (insert => noop) -- "at least mentioned once" in refinement proof (or following the paradigm and check if all are asserted in the desired way) (4.)
+        * transition mixedup `increment_decrement.dfy`
+        * state and transition both mixed up
 
 SpecTesting
 
