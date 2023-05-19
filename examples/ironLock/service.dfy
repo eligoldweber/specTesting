@@ -40,3 +40,14 @@ predicate Service_Next(s:ServiceState, s':ServiceState)
             new_lock_holder in s.hosts
          && s'.history == s.history + [new_lock_holder])
 }
+
+
+predicate Service_Next_More_Constrained(s:ServiceState, s':ServiceState)
+{
+    && s'.hosts == s.hosts
+    && |s.history| >= 1
+    && (exists new_lock_holder :: 
+            new_lock_holder in s.hosts && new_lock_holder != s.history[|s.history| - 1]
+         && s'.history == s.history + [new_lock_holder])
+
+}

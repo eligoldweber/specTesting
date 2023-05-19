@@ -56,3 +56,4 @@ lemma Service_Next_Property_2(s:ServiceState, s':ServiceState)
     // hosts unchanged
     assert s.hosts == s'.hosts;
 }
+
