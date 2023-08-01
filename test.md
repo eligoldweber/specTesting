@@ -1,14 +1,11 @@
 # How to Write a Unit Test in Dafny 101
 ## Unit Test for a single predicate
 ### Setup
-Specify each parameter of the predicate, which serves as the input of the test. There might be some fields that do not affect the expected result of the predicate.
-* If you make any additional assumption on the specification / function you calls, you need to `assume` them. (For example, you need an additional property of an empty function.)
-* How to make it comprehensive
-    * consider cases that are expected to be either true / false, and assert accordingly
-    * like traditional tests - 0,1,more
-    * think through every case
+Specify each parameter of the predicate, which serves as the input of the test. There might be some fields that do not affect the expected result of the predicate. -- specify them as preconditions
+* If you make any additional assumption on the specification / function you calls, specify them as a precondition. (For example, you need an additional property of an empty function.)
+
+
 * For some large data structures with many fields and layers, one can write a function that returns a basic form of it, and use it to generate various building blocks for the test.
-* With these building blocks, one may automatically generate some tests. (limited)
 ### Proof
 * If your assertion passes, the test passes!
 * If not, first try negating the asserted statement, and see if it passes or not. If the negated one passes, then the test fails. (or assert false after this line, and if it passes, then the test fails, same check)

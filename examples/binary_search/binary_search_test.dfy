@@ -1,13 +1,13 @@
 include "binary_search_specs.dfy"
 lemma BinarySearchNonRealisticTest(intSeq: seq<int>, key: int)
     requires forall i,j | 0 <= i <= j < |intSeq| :: intSeq[i] <= intSeq[j]
+    ensures exists r:: BinarySearchTransition(intSeq, key, r);
 {
     if (forall i | 0 <= i < |intSeq| :: intSeq[i] != key) {
         assert BinarySearchTransition(intSeq, key, -1);
     } else {
         assert exists r :: 0 <= r < |intSeq| && intSeq[r] == key && BinarySearchTransition(intSeq, key, r);
     }
-    assert exists r:: BinarySearchTransition(intSeq, key, r);
 }
 
 lemma deterministicTest(intSeq:seq<int>, key:int)

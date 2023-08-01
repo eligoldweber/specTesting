@@ -10,6 +10,6 @@ lemma Service_Self_Test() {
     assert Service_Next(s, s');
 
     // new lock holder
-    assert forall new_lock_holder | new_lock_holder in s.hosts :: new_lock_holder == s.history[|s.history| - 1] || s'.history[|s'.history| - 1] != new_lock_holder;
+    assert s.history == s'.history[..|s'.history| - 1];
     assert !Service_Next_More_Constrained(s, s');
 }
