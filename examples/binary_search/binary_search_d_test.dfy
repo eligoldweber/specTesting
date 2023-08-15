@@ -1,5 +1,13 @@
 include "binary_search_specs.dfy"
 
+predicate post_binary_deterministic(intSeq:seq<int>, key:int, r:int)
+{
+    && (r >= 0 ==> r < |intSeq| && intSeq[r] == key)
+    && (r < 0 ==> forall i:nat | i < |intSeq| :: intSeq[i] != key)
+    && (r < 0 ==> r == -1) // return -1 if not found
+    && (r >= 0 ==> forall i:nat | i < r :: intSeq[i] < key)
+}
+
 lemma FindFirst(intSeq: seq<int>, key: int) returns (r: nat)
     requires forall i,j | 0 <= i <= j < |intSeq| :: intSeq[i] <= intSeq[j]
     requires exists i : nat | i < |intSeq| :: intSeq[i] == key
@@ -37,6 +45,13 @@ requires forall i,j | 0 <= i <= j < |intSeq| :: intSeq[i] <= intSeq[j]
     var r2 := BinarySearchDeterministic(intSeq, key);
     assert r1 == r2;
 }
+
+lemma deterministicTest'(intSeq:seq<int>, key:int, r:int)
+    requires forall i,j | 0 <= i <= j < |intSeq| :: intSeq[i] <= intSeq[j]
+    requires exists r' :: r' != r && post_binary_deterministic(intSeq, key, r')
+    ensures !post_binary_deterministic(intSeq, key, r)
+{}
+
 
 lemma BinarySearchDeterministicUnitTest1() {
     // normal case

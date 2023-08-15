@@ -2,7 +2,7 @@ include "binary_search_specs.dfy"
 
 predicate pre_binary(intSeq:seq<int>, key:int)
 {
-    forall i,j | 0 <= i <= j < |intSeq| :: intSeq[i] <= intSeq[j]
+    forall i,j | 0 <= i < j < |intSeq| :: intSeq[i] <= intSeq[j]
 }
 
 predicate post_binary(intSeq:seq<int>, key:int, r:int)
@@ -10,30 +10,45 @@ predicate post_binary(intSeq:seq<int>, key:int, r:int)
     && (r >= 0 ==> r < |intSeq| && intSeq[r] == key)
     && (r < 0 ==> forall i:nat | i < |intSeq| :: intSeq[i] != key)
 }
-/// to make sure it can be called ///
-lemma test_pre_binary_point(key:int)
-{
-    var intSeq:seq<int> := [];
-    assert pre_binary(intSeq, key);
 
-    intSeq := [1];
-    assert pre_binary(intSeq, key);
-
-    intSeq := [1,2,4];
-    assert pre_binary(intSeq, key);
-
-    intSeq := [1,2,2,4];
-    assert pre_binary(intSeq, key);
-
-}
-
-// an exportable form of the preceding lemma 
-lemma test_pre_binary_point_1(intSeq:seq<int>, key:int)
+/// usefulness tests ///
+/*
+1. forall elements intSeq[i] < intSeq[j]
+*/
+lemma test_pre_binary_usefulness_1(intSeq:seq<int>, key:int)
     requires intSeq == []
     ensures pre_binary(intSeq, key)
-{
-    
-}
+{}
+
+lemma test_pre_binary_usefulness_2(intSeq:seq<int>, key:int)
+    requires |intSeq| == 1
+    ensures pre_binary(intSeq, key)
+{}
+
+lemma test_pre_binary_usefulness_3(intSeq:seq<int>, key:int)
+    requires intSeq == [1,2]
+    ensures pre_binary(intSeq, key)
+{}
+
+lemma test_pre_binary_usefulness_4(intSeq:seq<int>, key:int)
+    requires intSeq == [-1,-1]
+    ensures pre_binary(intSeq, key)
+{}
+
+lemma test_pre_binary_usefulness_5(intSeq:seq<int>, key:int)
+    requires intSeq == [1,2,3]
+    ensures pre_binary(intSeq, key)
+{}
+
+lemma test_pre_binary_usefulness_6(intSeq:seq<int>, key:int)
+    requires intSeq == [1,1,2,2,2,3]
+    ensures pre_binary(intSeq, key)
+{}
+
+lemma test_pre_binary_usefulness_7(intSeq:seq<int>, key:int)
+    requires intSeq == [1,3,5,7,9,11]
+    ensures pre_binary(intSeq, key)
+{}
 
 lemma test_pre_binary_property(intSeq:seq<int>, key:int)
     requires forall i, j | 0 <= i < j < |intSeq| :: intSeq[i] < intSeq[j] 
@@ -56,25 +71,56 @@ lemma test_pre_binary_non_realistic(intSeq:seq<int>, key:int)
     }
 }
 
-/// non-realistic: pre-conditions only ///
-lemma test_pre_binary_non_realistic_point(key:int)
+/// provability tests - precondition ///
+/*
+1. 0 < i
+2. true
+*/
+lemma test_pre_binary_provability_1(intSeq:seq<int>, key:int)
+    requires intSeq == [2,1]
+    ensures !pre_binary(intSeq, key)
 {
-    var intSeq:seq<int> := [3,2,1];
     assert intSeq[0] > intSeq[1];
-    assert !pre_binary(intSeq, key);
-
-    intSeq := [1,3,2];
-    assert intSeq[1] > intSeq[2];
-    assert !pre_binary(intSeq, key);
-
-    intSeq := [5,3];
-    assert intSeq[0] > intSeq[1];
-    assert !pre_binary(intSeq, key);
 }
 
-lemma test_pre_binary_non_realistic_point_1(intSeq:seq<int>, key:int)
+lemma test_pre_binary_provability_2(intSeq:seq<int>, key:int)
+    requires intSeq == [5,4,3,2,1]
+    ensures !pre_binary(intSeq, key)
+{
+    assert intSeq[0] > intSeq[1];
+}
+
+lemma test_pre_binary_provability_3(intSeq:seq<int>, key:int)
+    requires intSeq == [5,4,4,2,1]
+    ensures !pre_binary(intSeq, key)
+{
+    assert intSeq[0] > intSeq[1];
+}
+
+lemma test_pre_binary_provability_4(intSeq:seq<int>, key:int)
+    requires intSeq == [5,1,2,3,4]
+    ensures !pre_binary(intSeq, key)
+{
+    assert intSeq[0] > intSeq[1];
+}
+
+lemma test_pre_binary_provability_5(intSeq:seq<int>, key:int)
+    requires intSeq == [1,2,3,4,1]
+    ensures !pre_binary(intSeq, key)
+{
+    assert intSeq[3] > intSeq[4];
+}
+
+lemma test_pre_binary_provability_6(intSeq:seq<int>, key:int)
     requires intSeq == [3,2,1]
     ensures !pre_binary(intSeq, key)
 {
     assert intSeq[0] > intSeq[1];
+}
+
+lemma test_pre_binary_provability_7(intSeq:seq<int>, key:int)
+    requires intSeq == [1,3,2]
+    ensures !pre_binary(intSeq, key)
+{
+    assert intSeq[1] > intSeq[2];
 }

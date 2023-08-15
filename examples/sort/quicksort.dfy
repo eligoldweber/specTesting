@@ -13,6 +13,15 @@ lemma multisetAdditivity(m1:multiset<int>, m2:multiset<int>, m3:multiset<int>, m
         assert m3 == m1 - m2;
         assert m4 == m1 - m2;
     }
+predicate post_multiset(m1:multiset<int>, m2:multiset<int>)
+{
+    m1 == m2
+}
+
+lemma test_multiset(m1:multiset<int>, m2:multiset<int>, m3:multiset<int>, m4:multiset<int>)
+    requires |m3| != |m4|
+    ensures !post_multiset(m3, m4)
+{}
 
 lemma multisetMinus(intSeq1:seq<int>, intSeq2:seq<int>, start:nat, end:nat)
     requires multiset(intSeq1) == multiset(intSeq2)

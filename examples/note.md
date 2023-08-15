@@ -2,23 +2,6 @@
 * before having an implementation, check if the spec is correct
 * after having an implementation, cut down on the time to run the test cases
 
-## Non-Deterministic Test
-(I think it is an impressive idea, since it actually works rigorously for some cases, and is related to the potential problem with sorting spec)
-
-Potential problem:
-* dafny may not be able to prove - false negative
-    * e.g., sort.dfy
-* even if the spec is deterministic, it may not be correct - false positive
-    * e.g., max_example2.dfy
-* even if the spec is non-deterministic, it may be correct - false negative
-    * desired implementation is non-deterministic
-        * some random algorithm?
-        * cannot address by non-deterministic test
-    * desired implementation is deterministic
-        <!-- * add additional layer to the spec to make its constraint as tight as the potential implementation (in absence of implementation) e.g., binary_search.dfy -->
-            * in this case, if the detailed spec is non-deterministic, it is incorrect
-            * not sure whether it is sensible to do so
-
 ## Fuzzing
 ### Intuition
 1. spec is like an automated verifier for test case output
@@ -41,7 +24,7 @@ However, the translation from pre/post conditions in dafny to z3 expressions is 
 * want to find sth. in the spec black box but not in the human black box
 * use heuristics (e.g. z3) to automatically generate "test cases" that is in spec black box, and check manually by the human black box
 #### Approaches and potential problems
-1. randomness - require significant amount of manual work (and can never be automated)
+1. randomness - require significant amount of manual work
 2. edge cases - not all problems are at the edge
 <!-- 3. potential improvement of 1: extract duplicated pattern on top of the test cases generated
     * need to establish equivalency of cases (e.g., for sorting, the pattern [2,1,3]->[1,2,3] is nothing different from [5,4,6]->[4,5,6] in some sense)
@@ -132,7 +115,7 @@ Whether implementation is deterministic:
 * non-deterministic testing
 * fuzzing
 1. Both should be deterministic
-    * essential difference with testing traditional deterministic code: non-determinism of spec*
+    * essential difference with testing traditional deterministic code: non-determinism of spec
     * non-deterministic test
     * after ensuring determinism of the spec, only left is whether (input, output) pairs are desirable, can use fuzzing or traditional testing(run using z3 as traditional testing)
         * might not be as efficient as end-to-end testing in presence of implementation
